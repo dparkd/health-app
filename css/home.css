@@ -1,0 +1,157 @@
+body {
+  background: #2F2F2F;
+  margin: 0;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.title {
+  font-family: 'sf_ui_displayregular';
+  letter-spacing: 0.5px; 
+  font-size: 25px;
+}
+
+
+/*=======================================*/
+                  /*Home*/
+/*=======================================*/
+
+#home {
+  color: white;
+  display: none;
+}
+#draw {
+
+}
+
+#home .container {
+  position: relative;
+}
+
+#stat-image {
+  width: 100%;
+  position: relative;
+  top: 60px;
+}
+
+.bottom-bar {
+  width: 100%; 
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding-bottom: 25px;
+  text-align: right;
+}
+
+#bottom-text {
+  text-align: left;
+}
+#today {
+  display: inline-block;
+  margin-bottom: 0; 
+  line-height: 0;
+  text-align: left;
+}
+
+#draw-button {
+  text-align: right;
+  float: right;
+  text-decoration: none;
+  color: white; 
+}
+
+
+/*=======================================*/
+                  /*Draw*/
+/*=======================================*/
+
+.side-bar {
+  position: fixed; 
+  top: 50%; 
+  right:20px;
+  transform: translateY(-50%); 
+  transition: 0.2s all cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.hide-bar {
+  right: -100px; 
+}
+
+.shape {
+  position: relative;
+  width: 55px;
+  height: 55px;
+  border-radius: 110px;
+  border: 2px solid white;
+  margin-bottom: 20px;
+  text-align: center;
+  line-height: 55px;
+}
+
+.shape svg {
+  position: absolute; 
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%);
+}
+
+.active-tool {
+  background: white; 
+}
+
+.active-tool path, .active-tool ellipse {
+  stroke: #333;
+}
+
+#draw-area {
+  background: #2F2F2F; 
+  position: fixed; 
+  left: 0; 
+  top: 0; 
+}
+
+#sleep, #distance, #flights, #steps {
+  display: none; 
+  opacity: 0; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
