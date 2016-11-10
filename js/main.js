@@ -37,6 +37,7 @@ var TouchEventHandlers = {
   _currentTool: document.getElementById('steps'),
   _toolX: 145, 
   _toolY: 145,
+  _drawDelay: false,
 
   initialize: function() {
     this.bindEvents(); 
@@ -65,27 +66,43 @@ var TouchEventHandlers = {
   }, 
 
   onTouchMove: function(event) {
+    // hide side bar on touch
+    var sidebar = document.getElementById('side-bar');
+    sidebar.className = 'side-bar hide-bar';
+
     event.preventDefault();
     event.stopPropagation();
     var distanceX = Math.abs(this._lastX - event.pageX);
     var distanceY = Math.abs(this._lastY - event.pageY);
 
-    this._distanceX += distanceX; 
-    this._distanceY += distanceY;
+    // If it's just a circle image
+    if (this._drawDelay) {
+      if (distanceX > 50 || distanceY > 50) {
+        this._lastX = event.pageX; 
+        this._lastY = event.pageY;
+        // Draw Image
+        ctx.beginPath(); 
+        ctx.drawImage(this._currentTool, event.pageX - this._toolX/2, event.pageY - this._toolY/2, this._toolX, this._toolY);
+        ctx.closePath(); 
+        ctx.fill();
+      } else {
+        this._distanceX += distanceX; 
+        this._distanceY += distanceY;
+      }
+    } else {  // If it's a line image
+      this._distanceX += distanceX; 
+      this._distanceY += distanceY;
 
-    this._lastX = event.pageX; 
-    this._lastY = event.pageY;
+      this._lastX = event.pageX; 
+      this._lastY = event.pageY;
 
-    // hide side bar on touch
-    var sidebar = document.getElementById('side-bar');
-    sidebar.className = 'side-bar hide-bar';
-
-    // Draw Image
-    ctx.beginPath(); 
-    ctx.drawImage(this._currentTool, event.pageX - 50, event.pageY - 50, 145, 145);
-    ctx.closePath(); 
-    ctx.fill();
-    console.log(this._steps);
+      // Draw Image
+      ctx.beginPath(); 
+      ctx.drawImage(this._currentTool, event.pageX - this._toolX/2, event.pageY - this._toolY/2, this._toolX, this._toolY);
+      ctx.closePath(); 
+      ctx.fill();
+    }
+    
   }, 
 
   onTouchEnd: function(event) {
@@ -95,6 +112,11 @@ var TouchEventHandlers = {
   },
 
   onTouchTap: function(event) {
+    // Draw Image
+    ctx.beginPath(); 
+    ctx.drawImage(this._currentTool, event.pageX - this._toolX/2, event.pageY - this._toolY/2, this._toolX, this._toolY);
+    ctx.closePath(); 
+    ctx.fill();
   }
 }
 
@@ -112,12 +134,10 @@ for (var i = 0; i < shapes.length; i++) {
     current.className = 'shape';
     this.className += ' active-tool';
     currentTool = this.getAttribute('id');
-    var currentShape = this.getAttribute('data-img');
-    var toolX = this.getAttribute('data-x'); 
-    var toolY = this.getAttribute('data-y');
-    TouchEventHandlers._currentTool = document.getElementById(currentShape);
-    TouchEventHandlers._toolX = toolX; 
-    TouchEventHandlers._toolY = toolY;
+    TouchEventHandlers._currentTool = document.getElementById(this.getAttribute('data-img'));
+    TouchEventHandlers._toolX = this.getAttribute('data-x'); 
+    TouchEventHandlers._toolY = this.getAttribute('data-y');
+    TouchEventHandlers._drawDelay = JSON.parse(this.getAttribute('data-delay'));
   });
 }
 
