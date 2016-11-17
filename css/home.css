@@ -11,27 +11,37 @@ body {
   font-size: 25px;
 }
 
+.sub-title {
+  font-size: 23px; 
+  letter-spacing: 0.5px;
+}
+#draw {
+  display: none;
+}
 
 /*=======================================*/
                   /*Home*/
 /*=======================================*/
 
 #home {
+  position: fixed; 
   color: white;
-  display: none;
-}
-#draw {
-
+  height: 100%;
+  width: 100%;
+  display: inline-block; 
 }
 
 #home .container {
   position: relative;
+  padding-top: 25px;
+  height: 100%;
 }
 
 #stat-image {
   width: 100%;
-  position: relative;
-  top: 60px;
+  position: absolute;
+  top: 50%; 
+  transform: translateY(-50%); 
 }
 
 .bottom-bar {
@@ -39,7 +49,7 @@ body {
   position: fixed;
   bottom: 0;
   left: 0;
-  padding-bottom: 25px;
+  padding-bottom: 15px;
   text-align: right;
 }
 
@@ -68,13 +78,20 @@ body {
 .side-bar {
   position: fixed; 
   top: 50%; 
-  right:20px;
+  height: 100%; 
+  right: 75px;
   transform: translateY(-50%); 
   transition: 0.2s all cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 .hide-bar {
   right: -100px; 
+}
+
+.draw-tools {
+  position: absolute; 
+  top: 50%; 
+  transform: translateY(-50%);
 }
 
 .shape {
@@ -93,6 +110,59 @@ body {
   top: 50%; 
   left: 50%; 
   transform: translate(-50%, -50%);
+}
+
+.undo {
+  position: absolute;
+  width: 55px;
+  height: 55px;
+  top: 20px;
+  border-radius: 110px;
+  margin-bottom: 20px;
+  text-align: center;
+  line-height: 55px;
+}
+
+.undo svg {
+  position: absolute; 
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%);
+}
+
+.finish {
+  position: absolute;
+  width: 55px;
+  height: 55px;
+  bottom: 5px;
+  border-radius: 110px;
+  margin-bottom: 20px;
+  text-align: center;
+  line-height: 55px;
+}
+
+.exit {
+  position: fixed;
+  width: 55px;
+  height: 55px;
+  top: 20px;
+  border-radius: 110px;
+  margin-bottom: 20px;
+  text-align: center;
+  line-height: 55px;
+  transition: 0.2s all cubic-bezier(0.645, 0.045, 0.355, 1);
+  left: 20px;
+}
+
+.exit svg {
+  position: absolute; 
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%);
+}
+
+.hide-exit {
+  left: -100px; 
 }
 
 .active-tool {

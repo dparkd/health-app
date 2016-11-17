@@ -18,7 +18,8 @@ today.innerHTML = monthNames[d.getMonth()] + " " + d.getDate();
 var canvas = document.getElementById("draw-area"); 
 canvas.width = window.innerWidth; 
 canvas.height = window.innerHeight; 
-var ctx = canvas.getContext("2d")
+var ctx = canvas.getContext("2d"); 
+var undoButton = document.getElementById('undo');
 
 var TouchEventHandlers = {
   _touch: false,
@@ -39,8 +40,12 @@ var TouchEventHandlers = {
   _toolY: 145,
   _drawDelay: false,
 
+  _cPushArray: [],
+  _cStep: -1,
+
   initialize: function() {
     this.bindEvents(); 
+    this.cPush();
   }, 
 
   bindEvents: function() {
@@ -48,7 +53,30 @@ var TouchEventHandlers = {
     canvas.addEventListener('touchmove', this.onTouchMove.bind(this), false); 
     canvas.addEventListener('touchend', this.onTouchEnd.bind(this), false); 
     canvas.addEventListener('click', this.onTouchTap.bind(this), false);
+    undoButton.addEventListener('click', this.cUndo.bind(this), false);
   }, 
+
+  cPush: function() {
+    this._cStep++; 
+    if (this._cStep < this._cPushArray.length) {
+      cPushArray.length = cStep; 
+    }
+    this._cPushArray.push(document.getElementById('draw-area').toDataURL());
+  },
+
+  cUndo: function() {
+    if (this._cStep > 0) {
+      this._cStep--; 
+      var canvasPic = new Image(); 
+      canvasPic.src = this._cPushArray[this._cStep]; 
+      canvasPic.onload = function() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); 
+        ctx.drawImage(canvasPic, 0, 0); 
+      }
+    } else {
+      ctx.clearRect(0, 0, canvas.width, canvas.height); 
+    }
+  },
 
   onTouchStart: function(event) {
     this._touch = true;
@@ -69,6 +97,8 @@ var TouchEventHandlers = {
     // hide side bar on touch
     var sidebar = document.getElementById('side-bar');
     sidebar.className = 'side-bar hide-bar';
+    var exit = document.getElementById('exit');
+    exit.className = 'exit hide-exit';
 
     event.preventDefault();
     event.stopPropagation();
@@ -109,6 +139,9 @@ var TouchEventHandlers = {
     // show side bar on touch end
     var sidebar = document.getElementById('side-bar');
     sidebar.className = 'side-bar';
+    var exit = document.getElementById('exit');
+    exit.className = 'exit';
+    this.cPush();
   },
 
   onTouchTap: function(event) {
@@ -117,6 +150,7 @@ var TouchEventHandlers = {
     ctx.drawImage(this._currentTool, event.pageX - this._toolX/2, event.pageY - this._toolY/2, this._toolX, this._toolY);
     ctx.closePath(); 
     ctx.fill();
+    this.cPush();
   }
 }
 
@@ -140,7 +174,6 @@ for (var i = 0; i < shapes.length; i++) {
     TouchEventHandlers._drawDelay = JSON.parse(this.getAttribute('data-delay'));
   });
 }
-
 
 TouchEventHandlers.initialize();
 
