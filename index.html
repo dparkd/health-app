@@ -14,11 +14,20 @@
 <body>
 
 
-  <section id="home">
+  <section id="home" class="home-section">
     <div class="container">
       <h1 class="title">Today</h1>
 
       <img src="./public/good.png" alt="" id="stat-image">
+      <!-- <canvas id="cv"></canvas>
+      <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <defs>
+          <filter id="goo">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 60 -9"/>
+          </filter>
+        </defs>
+      </svg> -->
     </div>
 
     <div class="bottom-bar">
@@ -28,7 +37,7 @@
     </div>
   </section>
 
-  <section id="draw">
+  <section id="draw" class="draw-section">
     <canvas id="draw-area"></canvas>
 
     <img src="./public/shapes/1.png" id="steps">
@@ -36,7 +45,6 @@
     <img src="./public/shapes/3.png" id="distance">
     <img src="./public/shapes/4.png" id="sleep">
 
-    <div class="container">
       <div class="exit" id="exit">
         
         <svg width="24px" height="25px" viewBox="34 47 24 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -129,11 +137,38 @@
           </svg>
         </div>
       </div> <!-- end sidebar -->
+  </section>
+
+  <section id="home-finish" class="home-finish">
+    <div class="container">
+      <h1 class="title">Today</h1>
+    </div>
+
+    <div class="bottom-bar">
+      <div class="container">
+        <h1 class="sub-title" id="bottom-text"><span id="today-update"></span> <a href="" id="finish-info">
+          <svg width="43px" height="43px" viewBox="299 604 43 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <defs>
+                  <rect id="path-1" x="0" y="0" width="43" height="43" rx="21.5"></rect>
+                  <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="43" height="43" fill="white">
+                      <use xlink:href="#path-1"></use>
+                  </mask>
+              </defs>
+              <g id="Group" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(299.000000, 604.000000)">
+                  <use id="Rectangle" stroke="#FFFFFF" mask="url(#mask-2)" stroke-width="6" xlink:href="#path-1"></use>
+                  <text id="i" opacity="0.982276119" font-family="sf_ui_displayregular" font-size="22" font-weight="400" fill="#FFFFFF">
+                      <tspan x="19.0561523" y="29">i</tspan>
+                  </text>
+              </g>
+          </svg>
+        </a></h1>
+      </div>
     </div>
   </section>
 
 
 <script src="./js/main.js"></script>
+<!-- <script src="./js/blob.js"></script> -->
 
 </body>
 </html>

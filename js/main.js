@@ -1,5 +1,25 @@
 /* ============================================================
 
+                                      TRANSITIONS
+============================================================ */
+var home = document.getElementById('home'); 
+var draw = document.getElementById('draw'); 
+
+var drawButton = document.getElementById('draw-button');
+drawButton.addEventListener('click', function(e) {
+  e.preventDefault();
+  draw.className = 'show-draw-section draw-section'
+});
+
+var exitButton = document.getElementById('exit'); 
+exitButton.addEventListener('click', function(e) {
+  e.preventDefault();
+  draw.className = 'draw-section';
+  ctx.clearRect(0, 0, canvas.width, canvas.height); 
+});
+
+/* ============================================================
+
                                       HOME DATE FUNCTION
 ============================================================ */
 // Get today's date and display it to the #today html element
@@ -7,9 +27,11 @@ var monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
 var today = document.getElementById("today"); 
+var todayUpdate = document.getElementById("today-update"); 
 
 var d = new Date();
 today.innerHTML = monthNames[d.getMonth()] + " " + d.getDate();
+todayUpdate.innerHTML = monthNames[d.getMonth()] + " " + d.getDate();
 
 /* ============================================================
 
@@ -178,7 +200,23 @@ for (var i = 0; i < shapes.length; i++) {
 TouchEventHandlers.initialize();
 
 
+/* ============================================================
 
+                                      FINISH DRAWING
+============================================================ */
+var finalDrawing; 
+var finishButton = document.getElementById('finish');
+var homeFinish = document.getElementById('home-finish')
+
+finishButton.addEventListener('click', function(e) {
+  e.preventDefault(); 
+  finalDrawing = document.getElementById('draw-area').toDataURL();
+  homeFinish.className = 'home-finish show-home-finish'
+  draw.className = 'draw-section';
+  home.className = 'hide-home-section home-section';
+
+  homeFinish.style.backgroundImage = "url(" + finalDrawing +")";
+}); 
 
 
 
