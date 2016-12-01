@@ -119,18 +119,23 @@ body {
 }
 
 .animateSteps {
-  left: -200px; 
+  left: -300px; 
   top: -50px; 
 }
 
 .animateDistance {
-  left: -200px; 
+  left: -300px; 
   top: 90px;
 }
 
 .animateSleep {
-  left: 300px; 
-  top: 50px;
+  left: 400px; 
+  top: 0px;
+}
+
+.animateFlights {
+  left: 400px; 
+  top: 200px;
 }
 
 /*=======================================*/

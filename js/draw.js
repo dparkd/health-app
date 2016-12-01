@@ -8,6 +8,13 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight; 
 var ctx = canvas.getContext("2d"); 
 
+_startTime = _lastTime = performance.now();
+animate();
+function animate(currentTime) {
+  requestAnimationFrame(animate); 
+  ctx 
+}
+
 var TouchEventHandlers = {
   _touch: false,
   _quickTap: false,
@@ -23,8 +30,8 @@ var TouchEventHandlers = {
   _distanceY: 0,
 
   _currentTool: document.getElementById('flightShape'),
-  _toolX: 145, 
-  _toolY: 145,
+  _toolX: 100, 
+  _toolY: 100,
   _drawDelay: false,
   _activeShape: false,
 
