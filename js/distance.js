@@ -64,7 +64,9 @@ var TouchEventHandlersDistance = {
     this._lastY = event.pageY;
 
     // Draw Image
-    new Particle(event.pageX, event.pageY);
+    if (_activeShape) {
+      new Particle(event.pageX, event.pageY);
+    }
   }, 
 
   onTouchEnd: function(event) {
