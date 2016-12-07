@@ -1,203 +1,226 @@
-/* ============================================================
 
-                                      HOME DATE FUNCTION
-============================================================ */
-// Get today's date and display it to the #today html element
-var monthNames = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-];
-var today = document.getElementById("today"); 
-
-var d = new Date();
-today.innerHTML = monthNames[d.getMonth()] + " " + d.getDate();
 
 /* ============================================================
 
-                                      TRANSITIONS
+                                      Touch event handlers for mobile
 ============================================================ */
-var flightDraw = document.getElementById('flightDraw');
+var onboard = document.getElementById("onboard");
+var canvas = document.getElementById("flights-draw-area"); 
+canvas.width = window.innerWidth; 
+canvas.height = window.innerHeight; 
+var ctx = canvas.getContext("2d"); 
+var undoButton = document.getElementById('undo');
+
+_startTime = _lastTime = performance.now();
+animate();
+function animate(currentTime) {
+  requestAnimationFrame(animate); 
+  ctx 
+}
+
+var TouchEventHandlers = {
+  _touch: false,
+  _quickTap: false,
+  _lastUpdate: undefined,
+  _undoStart: 0, 
+
+  _startX: 0,
+  _startY: 0,
+
+  _lastX: 0,
+  _lastY: 0,
+
+  _distanceX: 0,
+  _distanceY: 0,
+
+  _currentTool: document.getElementById('flightShape'),
+  _toolX: 200, 
+  _toolY: 200,
+  _drawDelay: true,
+  _activeShape: false,
+
+  _cPushArray: [],
+  _cStep: -1,
+
+  initialize: function() {
+    this.bindEvents(); 
+    this.cPush();
+  }, 
+
+  bindEvents: function() {
+    canvas.addEventListener('touchstart', this.onTouchStart.bind(this), false); 
+    canvas.addEventListener('touchmove', this.onTouchMove.bind(this), false); 
+    canvas.addEventListener('touchend', this.onTouchEnd.bind(this), false); 
+    canvas.addEventListener('click', this.onTouchTap.bind(this), false);
+    undoButton.addEventListener('touchstart', this.cUndo.bind(this), false);
+    undoButton.addEventListener('touchend', this.cUndoEnd.bind(this), false);
+  },
+
+  cPush: function() {
+    this._cStep++; 
+    if (this._cStep < this._cPushArray.length) {
+      this._cPushArray.length = this._cStep; 
+    }
+    this._cPushArray.push(document.getElementById('flights-draw-area').toDataURL());
+  },
+
+  cUndo: function(e) {
+    e.preventDefault(); 
+    this._undoStart = Date.now();
+  },
+
+  cUndoEnd: function(e) {
+    e.preventDefault();
+    if (Date.now() - this._undoStart < 300) {
+      if (this._cStep > 0) {
+        this._cStep--; 
+        var canvasPic = new Image(); 
+        canvasPic.src = this._cPushArray[this._cStep]; 
+        canvasPic.onload = function() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height); 
+          ctx.drawImage(canvasPic, 0, 0); 
+        }
+      } else {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); 
+      }
+    }
+  },
+
+  onTouchStart: function(event) {
+    this._touch = true;
+    this._lastUpdate = Date.now();
+
+    this._distanceX = 0; 
+    this._distanceY = 0; 
+
+    this._startX = event.pageX;
+    this._startY = event.pageY;
+
+    this._lastX = event.pageX; 
+    this._lastY = event.pageY;
+
+  }, 
+
+  onTouchMove: function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    var distanceX = Math.abs(this._lastX - event.pageX);
+    var distanceY = Math.abs(this._lastY - event.pageY);
+
+    $("#onboard").addClass('fadeOut');
+    $(".infoBtn").addClass('fadeIn');
+    $(".undoBtn").addClass('fadeIn');
+    // Draw Image
+    if (this._drawDelay) {
+      if (distanceX > 2 || distanceY > 2) {
+        this._lastX = event.pageX; 
+        this._lastY = event.pageY;
+        // Draw Image
+        ctx.beginPath(); 
+        ctx.drawImage(this._currentTool, event.pageX - this._toolX/2, event.pageY - this._toolY/2, this._toolX, this._toolY);
+        ctx.closePath(); 
+        ctx.fill();
+      } else {
+        this._distanceX += distanceX; 
+        this._distanceY += distanceY;
+      }
+    } else {  // If it's a line image
+      this._distanceX += distanceX; 
+      this._distanceY += distanceY;
+
+      this._lastX = event.pageX; 
+      this._lastY = event.pageY;
+
+      // Draw Image
+      ctx.beginPath(); 
+      ctx.drawImage(this._currentTool, event.pageX - this._toolX/2, event.pageY - this._toolY/2, this._toolX, this._toolY);
+      ctx.closePath(); 
+      ctx.fill();
+    }
+    
+  }, 
+
+  onTouchEnd: function(event) {
+    this.cPush();
+  },
+
+  onTouchTap: function(event) {
+    // Draw Image
+    ctx.beginPath(); 
+    ctx.drawImage(this._currentTool, event.pageX - this._toolX/2, event.pageY - this._toolY/2, this._toolX, this._toolY);
+    ctx.closePath(); 
+    ctx.fill();
+    this.cPush();
+  }
+}
+
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+  TouchEventHandlers.initialize();
+} else {
+  WebTouchEventHandlers.initialize();
+}
+
 
 /* ============================================================
 
-                                      TOUCH HANDLER
-============================================================ */
-// DOM elements
-var shapes = document.getElementsByClassName("shape");
-var sounds = document.getElementsByClassName("sound");
-var titles = document.getElementsByClassName("title");
-var home = document.getElementById("home");
-
-// Variables
-var _lastUpdate;
-var _activeShape = false;
-var _currentShape;
-
-/* ============================================================
-
-                                      FLIGHTS
+                                      Breakdown Events
 ============================================================ */
 
-$('#flights').bind('touchstart', function(e) {
+var _startTime;
+$(".detailbtn").on("touchstart", function(e) {
   e.preventDefault();
-  _lastUpdate = Date.now();
+  _startTime = Date.now();
+});
 
-  $('.distance').addClass('animateDistance'); 
-  $('.sleep').addClass('animateSleep'); 
-  $('.steps').addClass('animateSteps'); 
-  $('.bottom-bar').addClass('animateToday');
-  $('.title').addClass('animateTitle');
+$(".detailbtn").on("touchend", function(e) {
+  e.preventDefault();
+  if (Date.now() - _startTime < 300) {
+    $(".detailbtn").each(function() {
+      $(this).removeClass("showBreakdownDetail");
+    });
+    $(this).addClass("showBreakdownDetail");
+    var img = $(this).data("img");
+    $(".breakdownImage").attr("src", img);
+    var data = $(this).data("health"); 
+    $(".health-data").html(data);
+  }
+});
 
-  divMouseDown = setTimeout(function() {
-    _activeShape = true; 
-    _currentShape = "flights";
-  }, 600);
+var _startInfoTime;
+$(".infoBtn").on("touchstart", function(e){
+  e.preventDefault();
+  _startInfoTime = Date.now();
 }); 
 
-$('.home-section').bind('touchmove', function(e) {
-  if (_activeShape && _currentShape === "flights") {
-    $('#flights').addClass('activeShape');
-    $("#flights").css({
-      "top": e.pageY - 75 + "px",
-      "left": e.pageX - 75 + "px",
-    })
-  }
-
-  if (_activeShape && _currentShape === "steps") {
-    $('#steps').addClass('activeShape');
-    $("#steps").css({
-      "top": e.pageY - 75 + "px",
-      "left": e.pageX - 75 + "px",
-    })
-  }
-
-  if (_activeShape && _currentShape === "sleep") {
-    $('#sleep').addClass('activeShape');
-    $("#sleep").css({
-      "top": e.pageY - 75 + "px",
-      "left": e.pageX - 75 + "px",
-    })
-  }
-
-  if (_activeShape && _currentShape === "distance") {
-    $('#distance').addClass('activeShape');
-    $("#distance").css({
-      "top": e.pageY - 75 + "px",
-      "left": e.pageX - 75 + "px",
-    })
+$('.infoBtn').on('touchend', function(e) {
+  if (Date.now() - _startInfoTime < 300) {
+    $(".infoBtn").toggleClass("infoBtnBackground");
+    $(".openInfo").toggleClass("hideInfoIcon"); 
+    $(".undoBtn").toggleClass("fadeIn"); 
+    $(".closeInfo").toggleClass("showInfoIcon"); 
+    $('.breakdown').toggleClass('showBreakdown');
   }
 })
 
-$('#flights').bind('touchend', function() {
-  _activeShape = false;
-  $('.distance').removeClass('animateDistance'); 
-  $('.sleep').removeClass('animateSleep'); 
-  $('.steps').removeClass('animateSteps'); 
-  $('.bottom-bar').removeClass('animateToday');
-  $('.title').removeClass('animateTitle');
-  $('#flights').removeAttr('style');
-  $('#flights').removeClass('activeShape');
-  clearTimeout(divMouseDown);
-})
-
 
 /* ============================================================
 
-                                      DISTANCE
+                                      OPEN THE CALENDAR VIEW
 ============================================================ */
-$('#distance').bind('touchstart', function(e) {
+var _startGalleryTime;
+$(".title").on("touchstart", function(e){
   e.preventDefault();
-  _lastUpdate = Date.now();
-
-  $('.flights').addClass('animateFlights'); 
-  $('.sleep').addClass('animateSleep'); 
-  $('.steps').addClass('animateSteps'); 
-  $('.bottom-bar').addClass('animateToday');
-  $('.title').addClass('animateTitle');
-
-  divMouseDown = setTimeout(function() {
-    _activeShape = true; 
-    _currentShape = "distance" 
-  }, 600);
+  _startInfoTime = Date.now();
 }); 
 
-
-$('#distance').bind('touchend', function() {
-  _activeShape = false;
-  $('.flights').removeClass('animateFlights'); 
-  $('.sleep').removeClass('animateSleep'); 
-  $('.steps').removeClass('animateSteps'); 
-  $('.bottom-bar').removeClass('animateToday');
-  $('.title').removeClass('animateTitle');
-  $('#distance').removeAttr('style');
-  $('#distance').removeClass('activeShape').animate();
-  clearTimeout(divMouseDown);
-})
-
-/* ============================================================
-
-                                      STEPS
-============================================================ */
-
-$('#steps').bind('touchstart', function(e) {
-  e.preventDefault();
-  _lastUpdate = Date.now();
-
-  $('.distance').addClass('animateDistance'); 
-  $('.sleep').addClass('animateSleep'); 
-  $('.flights').addClass('animateFlights'); 
-  $('.bottom-bar').addClass('animateToday');
-  $('.title').addClass('animateTitle');
-
-  divMouseDown = setTimeout(function() {
-    _activeShape = true; 
-    _currentShape = "steps";
-  }, 600);
-}); 
-
-$('#steps').bind('touchend', function() {
-  _activeShape = false;
-  $('.distance').removeClass('animateDistance'); 
-  $('.sleep').removeClass('animateSleep'); 
-  $('.flights').removeClass('animateFlights'); 
-  $('.bottom-bar').removeClass('animateToday');
-  $('.title').removeClass('animateTitle');
-  $('#steps').removeAttr('style');
-  $('#steps').removeClass('activeShape');
-  clearTimeout(divMouseDown);
-})
-
-/* ============================================================
-
-                                      SLEEP
-============================================================ */
-
-$('#sleep').bind('touchstart', function(e) {
-  e.preventDefault();
-  _lastUpdate = Date.now();
-
-  $('.distance').addClass('animateDistance'); 
-  $('.flights').addClass('animateFlights'); 
-  $('.steps').addClass('animateSteps'); 
-  $('.bottom-bar').addClass('animateToday');
-  $('.title').addClass('animateTitle');
-
-  divMouseDown = setTimeout(function() {
-    _activeShape = true; 
-    _currentShape = "sleep";
-  }, 600);
-}); 
-
-
-$('#sleep').bind('touchend', function() {
-  _activeShape = false;
-  $('.distance').removeClass('animateDistance'); 
-  $('.flights').removeClass('animateFlights'); 
-  $('.steps').removeClass('animateSteps'); 
-  $('.bottom-bar').removeClass('animateToday');
-  $('.title').removeClass('animateTitle');
-  $('#sleep').removeAttr('style');
-  $('#sleep').removeClass('activeShape');
-  clearTimeout(divMouseDown);
+$('.title').on('touchend', function(e) {
+  var img = document.getElementById('flights-draw-area').toDataURL();
+  $('.todayDrawing').attr('src', img);
+  $('#flights-draw-area').toggleClass('openGallery');
+  $('.title').toggleClass('galleryTitle');
+  $('body').toggleClass('galleryBody');
+  $('.gallery').toggleClass('closeGallery');
+  $('.todayDrawingContainer').toggleClass('shrinkDrawing'); 
 })
 
 

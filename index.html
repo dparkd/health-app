@@ -10,63 +10,80 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-  <link rel="stylesheet" href="./css/home.css">
+  <link rel="stylesheet" href="./css/home.css?v=2">
+
 </head>
 <body>
 
 
   <canvas id="flights-draw-area"></canvas>
-  <img src="./public/2.png" id="flightShape">
-
-  <section id="home" class="home-section">
-
-    <div class="container"> <!-- .container -->
-      <h1 class="title" id="title">Today</h1>
-      <div class="shape-container"> <!-- .shape-container -->
-
-        <img src="./public/homeshapes/steps.png" id="steps" class="shape steps">
-        <audio src="./public/audio/Mixdown.wav" id="stepSound" class="sound"></audio>
-
-        <img src="./public/homeshapes/sleep.png" id="sleep" class="shape sleep">
-        <audio src="./public/audio/percussion.wav" id="stepSound" class="sound"></audio>
-
-        <img src="./public/homeshapes/distance.png" id="distance" class="shape distance">
-        <audio src="./public/audio/master.mp3" id="stepSound" class="sound"></audio>
-
-        <img src="./public/homeshapes/flights.png" id="flights" class="shape flights"> 
-        <audio src="./public/audio/snare.wav" id="stepSound" class="sound"></audio>
-      </div> <!-- end .shape-container -->
-    </div> <!-- end .container -->
-
-    <div class="bottom-bar">
-      <div class="container">
-        <h1 class="sub-title" id="bottom-text"><span id="today" class="today"></span></h1>
-      </div>
-    </div>    
-  </section>
-
-  <!-- <section id="flightDraw" class="draw-section">
-    <canvas id="flights-draw-area"></canvas>
-    <img src="./public/2.png" id="flightShape">
-  </section>
-
-  <section id="distanceDraw" class="draw-section ">
-    <canvas id="distance-draw-area"></canvas>
-      <svg width="73px" height="71px" viewBox="-3180 3591 73 71" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="distanceShape">
-          <desc>Created with Sketch.</desc>
-          <defs></defs>
-          <ellipse id="Oval-5-Copy-2" stroke="none" fill="#D8D8D8" fill-rule="evenodd" cx="-3158.55631" cy="3613.27121" rx="12.8981172" ry="13.0661706"></ellipse>
-          <ellipse id="Oval-5-Copy-4" stroke="none" fill="#D8D8D8" fill-rule="evenodd" cx="-3120.22288" cy="3648.82293" rx="12.8981172" ry="13.0661706"></ellipse>
-          <ellipse id="Oval-5-Copy-3" stroke="none" fill="#D8D8D8" fill-rule="evenodd" cx="-3171.28499" cy="3600.42301" rx="8.54694513" ry="8.6583058"></ellipse>
-      </svg>
-  </section> -->
-
+  <img src="./public/shapedraw2.png?v=2" id="flightShape">
   
-<!-- <script src="./js/parallax.js"></script> -->
-<script src="./js/draw.js"></script>
-<script src="./js/main.js"></script>
-<!-- <script src="./js/distance.js"></script> -->
+  <div class="title-container" id="titleContainer"> <!-- .container -->
+    <h1 class="title" id="title">Today</h1>
+  </div> <!-- end .container -->
+  
+  <div class="gallery">
+    <div class="todayDrawingContainer">
+      <img src="" class="todayDrawing">
+    </div>
+    <div class="todayDrawingContainer">
+      <img src="" class="todayDrawing">
+    </div>
+    <div class="todayDrawingContainer">
+      <img src="" class="todayDrawing">
+    </div>
+  </div>
 
+  <img src="./public/onboard.png?v=2" alt="" id="onboard" class="onboard">
+  
+  <div class="undoBtn" id="undo">
+    <svg width="39px" height="39px" viewBox="7534 2493 39 39" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <!-- Generator: Sketch 40 (33762) - http://www.bohemiancoding.com/sketch -->
+        <desc>Created with Sketch.</desc>
+        <defs></defs>
+        <g id="Group-8" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(7535.000000, 2494.000000)">
+            <path d="M18.5,31.45 C25.6520875,31.45 31.45,25.6520875 31.45,18.5 C31.45,15.5477494 30.4621012,12.8262348 28.7988464,10.6479993 C26.4327198,7.54926728 22.6998369,5.55 18.5,5.55 C11.3479125,5.55 5.55,11.3479125 5.55,18.5" id="Oval-6" stroke="#FFFFFF" stroke-width="2" transform="translate(18.500000, 18.500000) rotate(-300.000000) translate(-18.500000, -18.500000) "></path>
+            <polyline id="Path-5" stroke="#FFFFFF" stroke-width="2" transform="translate(14.148388, 6.380799) rotate(-23.000000) translate(-14.148388, -6.380799) " points="17.5705589 1.90646048 10.7262173 6.43083893 17.4191605 10.8551371"></polyline>
+        </g>
+    </svg>
+  </div>
+
+  <div class="infoBtn"> 
+    <svg width="3px" height="26px" viewBox="723 652 3 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="openInfo">
+        <defs></defs>
+        <path d="M725.62069,660.453712 L723,660.453712 L723,677.265596 C723,677.471877 723.172414,677.643778 723.37931,677.643778 L726,677.643778 L726,660.797513 C726,660.591233 725.827586,660.453712 725.62069,660.453712 L725.62069,660.453712 Z M725.62069,652.752563 L723,652.752563 L723,655.571733 C723,655.778014 723.172414,655.949915 723.37931,655.949915 L726,655.949915 L726,653.130744 C726,652.924463 725.827586,652.752563 725.62069,652.752563 L725.62069,652.752563 Z" id="i" stroke="none" fill="#FFFFFF" fill-rule="evenodd"></path>
+    </svg>
+
+    <svg width="28px" height="29px" viewBox="817 578 28 29" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="closeInfo hideInfoIcon">
+        <defs></defs>
+        <g id="Group-10" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(819.000000, 580.000000)" stroke-linecap="square">
+            <path d="M1.13333333,1.26388889 L23.5333333,23.5972222" id="Line" stroke="#2F2F2F" stroke-width="3"></path>
+            <path d="M1.13333333,1.26388889 L23.5333333,23.5972222" id="Line" stroke="#2F2F2F" stroke-width="3" transform="translate(12.333333, 12.430556) rotate(-270.000000) translate(-12.333333, -12.430556) "></path>
+        </g>
+    </svg>
+  </div>
+
+  <div class="breakdown">
+    <img src="./public/shapedraw3.png?v=2" class="breakdownImage">
+
+    <div class="buttons">
+      <h1 class="health-data">7589 Steps Taken</h1>
+      <div class="detailbtn showBreakdownDetail" data-img="./public/stepsOnly.png" data-health="7589 Steps Taken">
+        <a href="#">Steps</a>
+      </div>
+
+      <div class="detailbtn" data-img="./public/distanceOnly.png" data-health="4km Travelled">
+        <a href="#">Distance</a>
+      </div>
+
+      <div class="detailbtn" data-img="./public/stairsOnly.png" data-health="4 Flights of Stairs">
+        <a href="#">Stairs</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/main.js?v=2"></script>
 </body>
 </html>
 
