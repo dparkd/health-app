@@ -23,6 +23,7 @@ var TouchEventHandlers = {
   _quickTap: false,
   _lastUpdate: undefined,
   _undoStart: 0, 
+  _tapStart: 0,
 
   _startX: 0,
   _startY: 0,
@@ -51,7 +52,8 @@ var TouchEventHandlers = {
     canvas.addEventListener('touchstart', this.onTouchStart.bind(this), false); 
     canvas.addEventListener('touchmove', this.onTouchMove.bind(this), false); 
     canvas.addEventListener('touchend', this.onTouchEnd.bind(this), false); 
-    canvas.addEventListener('click', this.onTouchTap.bind(this), false);
+    canvas.addEventListener('touchstart', this.onTouchTap.bind(this), false);
+    canvas.addEventListener('touchend', this.onTouchTapEnd.bind(this), false);
     undoButton.addEventListener('touchstart', this.cUndo.bind(this), false);
     undoButton.addEventListener('touchend', this.cUndoEnd.bind(this), false);
   },
@@ -145,12 +147,19 @@ var TouchEventHandlers = {
   },
 
   onTouchTap: function(event) {
-    // Draw Image
-    ctx.beginPath(); 
-    ctx.drawImage(this._currentTool, event.pageX - this._toolX/2, event.pageY - this._toolY/2, this._toolX, this._toolY);
-    ctx.closePath(); 
-    ctx.fill();
-    this.cPush();
+    event.preventDefault();
+    _tapStart = Date.now();
+  }, 
+  onTouchTapEnd: function(e) {
+    e.preventDefault(); 
+    if (Date.now() - _tapStart < 300) {
+      // Draw Image
+      ctx.beginPath(); 
+      ctx.drawImage(this._currentTool, event.pageX - this._toolX/2, event.pageY - this._toolY/2, this._toolX, this._toolY);
+      ctx.closePath(); 
+      ctx.fill();
+      this.cPush();
+    }
   }
 }
 
@@ -194,6 +203,7 @@ $(".infoBtn").on("touchstart", function(e){
 
 $('.infoBtn').on('touchend', function(e) {
   if (Date.now() - _startInfoTime < 300) {
+    $(".title").toggleClass("disableMouse");
     $(".infoBtn").toggleClass("infoBtnBackground");
     $(".openInfo").toggleClass("hideInfoIcon"); 
     $(".undoBtn").toggleClass("fadeIn"); 
@@ -201,7 +211,6 @@ $('.infoBtn').on('touchend', function(e) {
     $('.breakdown').toggleClass('showBreakdown');
   }
 })
-
 
 /* ============================================================
 
@@ -213,19 +222,55 @@ $(".title").on("touchstart", function(e){
   _startInfoTime = Date.now();
 }); 
 
+var _openGallery = 0;
 $('.title').on('touchend', function(e) {
   var img = document.getElementById('flights-draw-area').toDataURL();
+  if (_openGallery % 2) {
+    $(this).html("Today");
+  } else {
+    $(this).html("History");
+  }
+  _openGallery++;
   $('.todayDrawing').attr('src', img);
   $('#flights-draw-area').toggleClass('openGallery');
   $('.title').toggleClass('galleryTitle');
   $('body').toggleClass('galleryBody');
   $('.gallery').toggleClass('closeGallery');
+  $('.galleryNav').toggleClass('closeGallery');
   $('.todayDrawingContainer').toggleClass('shrinkDrawing'); 
+  $(".undoBtn").toggleClass("fadeIn"); 
+  $(".infoBtn").toggleClass("fadeIn");
+});
+
+var _healthToday;
+$(".todaysHealth").on("touchstart", function(e){
+  _healthToday = Date.now();
+}); 
+
+var _isMoving = false; 
+$('.todaysHealth').on('touchmove', function(e) {
+  _isMoving = true;
 })
 
-
-
-
+$('.todaysHealth').on('touchend', function(e) {
+  if (Date.now() - _healthToday < 300 && !_isMoving) {
+    if (_openGallery % 2) {
+      $('.title').html("Today");
+    } else {
+      $('.title').html("History");
+    }
+    _openGallery++;
+    $('#flights-draw-area').toggleClass('openGallery');
+    $('.title').toggleClass('galleryTitle');
+    $('body').toggleClass('galleryBody');
+    $('.gallery').toggleClass('closeGallery');
+    $('.galleryNav').toggleClass('closeGallery');
+    $('.todayDrawingContainer').toggleClass('shrinkDrawing'); 
+    $(".undoBtn").toggleClass("fadeIn"); 
+    $(".infoBtn").toggleClass("fadeIn");
+  }
+  _isMoving = false;
+})
 
 
 

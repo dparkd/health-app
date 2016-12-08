@@ -7,6 +7,14 @@
   <meta name="viewport" content="width=device-width, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="stylesheet" href="./fonts/stylesheet.css">
+  <link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Space+Mono" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Heebo" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+
+
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
@@ -24,51 +32,79 @@
   </div> <!-- end .container -->
   
   <div class="gallery">
-    <div class="todayDrawingContainer">
+    <div class="todayDrawingContainer todaysHealth">
       <img src="" class="todayDrawing">
+      <p class="galleryDate">Today</p>
     </div>
     <div class="todayDrawingContainer">
-      <img src="" class="todayDrawing">
+      <img src="./public/gallery/day2.png" class="">
+      <p class="galleryDate">Dec 7</p>
     </div>
     <div class="todayDrawingContainer">
-      <img src="" class="todayDrawing">
+      <img src="./public/gallery/day1.png" class="">
+      <p class="galleryDate">Dec 6</p>
     </div>
   </div>
 
-  <img src="./public/onboard.png?v=2" alt="" id="onboard" class="onboard">
-  
-  <div class="undoBtn" id="undo">
-    <svg width="39px" height="39px" viewBox="7534 2493 39 39" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-        <!-- Generator: Sketch 40 (33762) - http://www.bohemiancoding.com/sketch -->
-        <desc>Created with Sketch.</desc>
+  <div class="galleryNav">
+    <ul>
+      <li>
+        <svg width="30px" height="32px" viewBox="813 674 30 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <defs></defs>
+            <g id="Group" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(813.000000, 674.000000)">
+                <path d="M11.8639181,0.133351261 L11.1571807,3.99935227 C9.52382763,4.5096644 8.04720763,5.35606089 6.78931307,6.45010235 L3.09342441,5.03488825 L3.70747443e-07,10.0630092 L2.96597998,12.6748426 C2.73332854,13.6111512 2.60681839,14.5896545 2.60681839,15.5973626 C2.60681839,16.6050634 2.73332854,17.5836035 2.96597998,18.5198753 L3.70747443e-07,21.1317088 L3.09342441,26.1598297 L6.78931307,24.7446156 C8.04720726,25.8386202 9.52382763,26.6850535 11.1571807,27.1953657 L11.8639181,31.0613667 L17.7958773,31.0613667 L18.5026146,27.1953657 C20.1359722,26.6850535 21.6125884,25.8386202 22.870483,24.7446156 L26.5663717,26.1598297 L29.6597957,21.1317088 L26.705402,18.5083509 C26.9359068,17.5761661 27.0529777,16.6002401 27.0529777,15.5973626 C27.0529777,14.594441 26.9359068,13.6185887 26.705402,12.686367 L29.6597957,10.0630092 L26.5663717,5.03488825 L22.870483,6.45010235 C21.6125884,5.35606089 20.1359722,4.5096644 18.5026146,3.99935227 L17.7958773,0.133351261 L11.8639181,0.133351261 L11.8639181,0.133351261 Z M14.8298977,8.23354385 C18.9250624,8.23354385 22.2448467,11.5303959 22.2448467,15.5973626 C22.2448467,19.6642484 18.9250624,22.9611741 14.8298977,22.9611741 C10.7347359,22.9611741 7.41494939,19.6642484 7.41494939,15.5973626 C7.41494939,11.5303959 10.7347359,8.23354385 14.8298977,8.23354385 L14.8298977,8.23354385 Z" id="Shape" fill="#1A1A1A"></path>
+            </g>
+        </svg>
+      </li>
+    </ul>
+  </div>
+
+  <!-- <img src="./public/onboard.png?v=2" alt="" id="onboard" class="onboard"> -->
+  <div class="onboard" id="onboard">
+    <svg width="30px" height="30px" viewBox="83 303 30 30" class="animateShape" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
         <defs></defs>
-        <g id="Group-8" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(7535.000000, 2494.000000)">
-            <path d="M18.5,31.45 C25.6520875,31.45 31.45,25.6520875 31.45,18.5 C31.45,15.5477494 30.4621012,12.8262348 28.7988464,10.6479993 C26.4327198,7.54926728 22.6998369,5.55 18.5,5.55 C11.3479125,5.55 5.55,11.3479125 5.55,18.5" id="Oval-6" stroke="#FFFFFF" stroke-width="2" transform="translate(18.500000, 18.500000) rotate(-300.000000) translate(-18.500000, -18.500000) "></path>
-            <polyline id="Path-5" stroke="#FFFFFF" stroke-width="2" transform="translate(14.148388, 6.380799) rotate(-23.000000) translate(-14.148388, -6.380799) " points="17.5705589 1.90646048 10.7262173 6.43083893 17.4191605 10.8551371"></polyline>
+        <g id="Group-3-Copy-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(84.000000, 304.000000)">
+            <circle id="Oval-2-Copy" fill="#FFFFFF" cx="14" cy="14" r="8"></circle>
+            <circle id="Oval-2-Copy" stroke="#FFFFFF" stroke-linejoin="round" stroke-dasharray="4" cx="14" cy="14" r="14"></circle>
+        </g>
+    </svg>
+     <svg  width="191px" height="133px" viewBox="0 0 191 133" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path class="path" d="M94.0497258,369.785564 C94.0497258,369.785564 140.986829,332.785564 167.560194,332.785564 C194.13356,332.785564 210.248149,365.948027 241.524078,365.948027 C272.800006,365.948027 291.106102,336.184632 291.106102,336.184632" id="Path-2" stroke="#979797" stroke-width="1" stroke-linecap="round" fill="none" transform="translate(192.577914, 351.285564) rotate(-353.000000) translate(-192.577914, -351.285564) "></path>
+    </svg>
+  </div>
+
+ 
+
+  <div class="undoBtn" id="undo">
+    
+    <svg width="32px" height="32px" viewBox="766 671 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <defs></defs>
+        <g id="Group-13" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(766.000000, 671.000000)">
+            <path d="M16,27.2 C22.1855892,27.2 27.2,22.1855892 27.2,16 C27.2,13.4467021 26.345601,11.0929599 24.9071104,9.20908052 C22.8607307,6.52909603 19.6322913,4.8 16,4.8 C9.8144108,4.8 4.8,9.8144108 4.8,16" id="Oval-6" stroke="#FFFFFF" transform="translate(16.000000, 16.000000) rotate(-300.000000) translate(-16.000000, -16.000000) "></path>
+            <polyline id="Path-5" stroke="#FFFFFF" transform="translate(12.236444, 5.518529) rotate(-23.000000) translate(-12.236444, -5.518529) " points="15.196159 1.64883069 9.27672846 5.56180664 15.0652199 9.38822667"></polyline>
         </g>
     </svg>
   </div>
 
   <div class="infoBtn"> 
-    <svg width="3px" height="26px" viewBox="723 652 3 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="openInfo">
+    <svg width="1px" height="16px" viewBox="723 654 1 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="openInfo">
         <defs></defs>
-        <path d="M725.62069,660.453712 L723,660.453712 L723,677.265596 C723,677.471877 723.172414,677.643778 723.37931,677.643778 L726,677.643778 L726,660.797513 C726,660.591233 725.827586,660.453712 725.62069,660.453712 L725.62069,660.453712 Z M725.62069,652.752563 L723,652.752563 L723,655.571733 C723,655.778014 723.172414,655.949915 723.37931,655.949915 L726,655.949915 L726,653.130744 C726,652.924463 725.827586,652.752563 725.62069,652.752563 L725.62069,652.752563 Z" id="i" stroke="none" fill="#FFFFFF" fill-rule="evenodd"></path>
+        <path d="M723.873563,658.057544 L723,658.057544 L723,669.098345 C723,669.233814 723.057471,669.346706 723.126437,669.346706 L724,669.346706 L724,658.283328 C724,658.147858 723.942529,658.057544 723.873563,658.057544 L723.873563,658.057544 Z M723.873563,654 L723,654 L723,655.763441 C723,655.892473 723.057471,656 723.126437,656 L724,656 L724,654.236559 C724,654.107527 723.942529,654 723.873563,654 L723.873563,654 Z" id="i" stroke="none" fill="#FFFFFF" fill-rule="evenodd"></path>
     </svg>
 
-    <svg width="28px" height="29px" viewBox="817 578 28 29" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="closeInfo hideInfoIcon">
+        
+    <svg width="17px" height="17px" viewBox="733 653 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="closeInfo hideInfoIcon">
         <defs></defs>
-        <g id="Group-10" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(819.000000, 580.000000)" stroke-linecap="square">
-            <path d="M1.13333333,1.26388889 L23.5333333,23.5972222" id="Line" stroke="#2F2F2F" stroke-width="3"></path>
-            <path d="M1.13333333,1.26388889 L23.5333333,23.5972222" id="Line" stroke="#2F2F2F" stroke-width="3" transform="translate(12.333333, 12.430556) rotate(-270.000000) translate(-12.333333, -12.430556) "></path>
-        </g>
+        <path d="M734.68,654.758333 L748.12,668.158333" id="Line" stroke="#FFFFFF" stroke-width="1" stroke-linecap="square" fill="none"></path>
+        <path d="M734.68,654.758333 L748.12,668.158333" id="Line" stroke="#FFFFFF" stroke-width="1" stroke-linecap="square" fill="none" transform="translate(741.400000, 661.458333) rotate(-270.000000) translate(-741.400000, -661.458333) "></path>
     </svg>
   </div>
 
   <div class="breakdown">
-    <img src="./public/shapedraw3.png?v=2" class="breakdownImage">
+    <h1 class="health-data">7589 Steps Taken</h1>
+    <img src="./public/stepsOnly.png?v=2" class="breakdownImage">
 
     <div class="buttons">
-      <h1 class="health-data">7589 Steps Taken</h1>
       <div class="detailbtn showBreakdownDetail" data-img="./public/stepsOnly.png" data-health="7589 Steps Taken">
         <a href="#">Steps</a>
       </div>
@@ -82,8 +118,22 @@
       </div>
     </div>
   </div>
-
+  
+  <script src="./js/anime.js"></script>
   <script src="./js/main.js?v=2"></script>
+
+  <script>
+    var path = anime.path('.path');
+    anime({
+      targets: '.animateShape',
+      translateX: path,
+      translateY: path,
+      duration: 3000,
+      loop: true,
+      opacity: 0,
+      easing: 'easeOutCirc'
+    });
+  </script>
 </body>
 </html>
 
