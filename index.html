@@ -25,7 +25,10 @@
 
 
   <canvas id="flights-draw-area"></canvas>
-  <img src="./public/shapedraw2.png?v=2" id="flightShape">
+  <img src="./public/shapedraw2.png?v=2" id="allShape">
+  <img src="./public/drawTools/distanceShape.png" id="distanceShape">
+  <img src="./public/drawTools/stairsShape.png" id="stairsShape">
+  <img src="./public/drawTools/stepsShape.png" id="stepsShape">
   
   <div class="title-container" id="titleContainer"> <!-- .container -->
     <h1 class="title" id="title">Today</h1>
@@ -98,6 +101,13 @@
         <path d="M734.68,654.758333 L748.12,668.158333" id="Line" stroke="#FFFFFF" stroke-width="1" stroke-linecap="square" fill="none"></path>
         <path d="M734.68,654.758333 L748.12,668.158333" id="Line" stroke="#FFFFFF" stroke-width="1" stroke-linecap="square" fill="none" transform="translate(741.400000, 661.458333) rotate(-270.000000) translate(-741.400000, -661.458333) "></path>
     </svg>
+  </div>
+
+  <div class="toolBtn">
+    <img src="./public/drawTools/all.png" class="all activeTool" alt="">
+    <img src="./public/drawTools/stairs.png" class="stairs" alt="">
+    <img src="./public/drawTools/steps.png" class="steps" alt="">
+    <img src="./public/drawTools/distance.png" class="distance" alt="">
   </div>
 
   <div class="breakdown">

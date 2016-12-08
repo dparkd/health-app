@@ -34,7 +34,7 @@ var TouchEventHandlers = {
   _distanceX: 0,
   _distanceY: 0,
 
-  _currentTool: document.getElementById('flightShape'),
+  _currentTool: document.getElementById('allShape'),
   _toolX: 200, 
   _toolY: 200,
   _drawDelay: true,
@@ -111,7 +111,7 @@ var TouchEventHandlers = {
 
     $("#onboard").addClass('fadeOut');
     $(".infoBtn").addClass('fadeIn');
-    $(".undoBtn").addClass('fadeIn');
+    $(".undoBtn, .toolBtn").addClass('fadeIn');
     // Draw Image
     if (this._drawDelay) {
       if (distanceX > 2 || distanceY > 2) {
@@ -206,9 +206,31 @@ $('.infoBtn').on('touchend', function(e) {
     $(".title").toggleClass("disableMouse");
     $(".infoBtn").toggleClass("infoBtnBackground");
     $(".openInfo").toggleClass("hideInfoIcon"); 
-    $(".undoBtn").toggleClass("fadeIn"); 
+    $(".undoBtn, .toolBtn").toggleClass("fadeIn"); 
     $(".closeInfo").toggleClass("showInfoIcon"); 
     $('.breakdown').toggleClass('showBreakdown');
+  }
+})
+
+
+var _toolBtnStart;
+var tools = ['.all', '.stairs', '.steps', '.distance'];
+var toolKit = [document.getElementById('allShape'), document.getElementById('stairsShape'), document.getElementById('stepsShape'), document.getElementById('distanceShape')];
+var currentTool = 0;
+$(".toolBtn").on("touchstart", function(e){
+  e.preventDefault();
+  _startInfoTime = Date.now();
+}); 
+
+$('.toolBtn').on('touchend', function(e) {
+  if (Date.now() - _startInfoTime < 300) {
+    $(tools[currentTool]).removeClass('activeTool'); 
+    currentTool++; 
+    if (currentTool > 3) {
+      currentTool = 0; 
+    }
+    $(tools[currentTool]).addClass('activeTool');
+    TouchEventHandlers._currentTool = toolKit[currentTool];
   }
 })
 
